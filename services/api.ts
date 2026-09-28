@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// إنستنس واحد نستخدمه بكل مكان بدل ما نكرر axios.get() بكل ملف
+// Share one Axios instance instead of repeating axios.get() configuration.
 const api = axios.create({
-  baseURL: "https://dummyjson.com",
-  timeout: 10000,
+    baseURL: "https://dummyjson.com",
+    timeout: 10000,
 });
 
 export default api;

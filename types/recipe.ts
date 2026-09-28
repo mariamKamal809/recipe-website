@@ -1,61 +1,61 @@
-// شكل الوصفة الواحدة زي ما ترجعها dummyjson بالضبط
+// Recipe shape returned by DummyJSON.
 export interface Recipe {
-  id: number;
-  name: string;
-  ingredients: string[];
-  instructions: string[];
-  prepTimeMinutes: number;
-  cookTimeMinutes: number;
-  servings: number;
-  difficulty: "Easy" | "Medium" | "Hard";
-  cuisine: string;
-  caloriesPerServing: number;
-  tags: string[];
-  userId: number;
-  image: string;
-  rating: number;
-  reviewCount: number;
-  mealType: string[];
+    id: number;
+    name: string;
+    ingredients: string[];
+    instructions: string[];
+    prepTimeMinutes: number;
+    cookTimeMinutes: number;
+    servings: number;
+    difficulty: "Easy" | "Medium" | "Hard";
+    cuisine: string;
+    caloriesPerServing: number;
+    tags: string[];
+    userId: number;
+    image: string;
+    rating: number;
+    reviewCount: number;
+    mealType: string[];
 }
 
-// شكل الرسبونس لأي إندبوينت يرجع لستة وصفات
+// Response shape for endpoints that return a recipe list.
 export interface RecipesResponse {
-  recipes: Recipe[];
-  total: number;
-  skip: number;
-  limit: number;
+    recipes: Recipe[];
+    total: number;
+    skip: number;
+    limit: number;
 }
 
-// خيارات الفرز المدعومة فعلياً من الـ API
+// Sorting options supported by the API.
 export type SortField = "rating" | "prepTimeMinutes" | "caloriesPerServing";
 export type SortOrder = "asc" | "desc";
 
-// باراميترز جلب لستة الوصفات (pagination + sort)
+// Parameters for fetching a paginated and sorted recipe list.
 export interface GetRecipesParams {
-  limit?: number;
-  skip?: number;
-  sortBy?: SortField;
-  order?: SortOrder;
+    limit?: number;
+    skip?: number;
+    sortBy?: SortField;
+    order?: SortOrder;
 }
 
-// باراميترز البحث — نفس الي فوق بس مع نص البحث
+// Search parameters, extending the list parameters with a query.
 export interface SearchRecipesParams extends GetRecipesParams {
-  q: string;
+    q: string;
 }
 
-// كاتيكوري بشريط الفلترة — بعضها tag وبعضها mealType، كل وحدة إلها إندبوينت مختلف
+// Categories in the filter bar; tags and meal types use different endpoints.
 export type CategoryKind = "tag" | "meal";
 
 export interface Category {
-  id: string; // "all" أو اسم التاك/الميل تايب زي ما يتوقعه الـ API
-  label: string; // النص المعروض بالعربي
-  emoji: string;
-  kind: CategoryKind;
+    id: string; // "all" or a tag/meal type name expected by the API.
+    label: string; // User-facing category label.
+    emoji: string;
+    kind: CategoryKind;
 }
 
-// نوع مستوى المكونات (props) لكومبوننت الكارد
+// Props for the recipe card component.
 export interface RecipeCardProps {
-  recipe: Recipe;
-  isFavorite: boolean;
-  onToggleFavorite: (id: number) => void;
+    recipe: Recipe;
+    isFavorite: boolean;
+    onToggleFavorite: (id: number) => void;
 }
